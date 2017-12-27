@@ -7,7 +7,7 @@ public class MyEditorScript : MonoBehaviour
 {
     static string[] SCENES = FindEnableEditorScenes();
 
-    static string gameCode = "Jenkins_Test2";
+    static string gameCode = "JenkinsTest3";
     static string TARGET_DIR = "0Bin";
     static string APP_NAME = "/{0}.apk";
 

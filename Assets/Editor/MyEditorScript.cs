@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public class MyEditorScript : MonoBehaviour
+public class MyEditorScript
 {
     static string[] SCENES = FindEnableEditorScenes();
 

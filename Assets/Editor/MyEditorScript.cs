@@ -1,47 +1,39 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 public class MyEditorScript
 {
-    static string[] SCENES = FindEnableEditorScenes();
+    static string[] SCENES = FindEnabledEditorScenes();
+    static string APP_NAME = "JenkinsTest3";
 
-    static string gameCode = "JenkinsTest3";
-    static string TARGET_DIR = "0Bin";
-    static string APP_NAME = "/{0}.apk";
-
-    [MenuItem ("Custom/TestBuild")]
-    static void TestBuild()
+    [MenuItem("Custom/CI/Build Android")]
+    static void PerformAndroidBuild()
     {
-        //string BUILD_TARGET_PATH = TARGET_DIR + string.Format(APP_NAME, gameCode);
-        //Debug.Log("BUILD_TARGET_PATH : " + BUILD_TARGET_PATH);
-
-
-        string BUILD_TARGET_PATH = gameCode + ".apk";
-        GenericBuild(SCENES, BUILD_TARGET_PATH, BuildTarget.Android, BuildOptions.None);
+        string target_filename = APP_NAME + ".apk";
+        GenericBuild(SCENES, target_filename, BuildTarget.Android, BuildOptions.None);
     }
 
-
-    private static string[] FindEnableEditorScenes()
+    private static string[] FindEnabledEditorScenes()
     {
         List<string> EditorScenes = new List<string>();
-        foreach(EditorBuildSettingsScene scene in EditorBuildSettings.scenes)
+        foreach (EditorBuildSettingsScene scene in EditorBuildSettings.scenes)
         {
             if (!scene.enabled) continue;
             EditorScenes.Add(scene.path);
         }
-
         return EditorScenes.ToArray();
     }
 
-    static void GenericBuild(string[] scenes, string target_dir, BuildTarget build_target, BuildOptions build_options)
+    static void GenericBuild(string[] scenes, string target_filename, BuildTarget build_target, BuildOptions build_options)
     {
         EditorUserBuildSettings.SwitchActiveBuildTarget(build_target);
-        string res = BuildPipeline.BuildPlayer(scenes, target_dir, build_target, build_options);
-        if(res.Length > 0)
+        string res = BuildPipeline.BuildPlayer(scenes, target_filename, build_target, build_options);
+        if (res.Length > 0)
         {
-            throw new System.Exception("BuildPlayer failure: " + res);
+            throw new Exception("BuildPlayer failure: " + res);
         }
     }
 }

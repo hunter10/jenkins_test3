@@ -14,9 +14,11 @@ public class MyEditorScript
     [MenuItem ("Custom/TestBuild")]
     static void TestBuild()
     {
-        string BUILD_TARGET_PATH = TARGET_DIR + string.Format(APP_NAME, gameCode);
-        Debug.Log("BUILD_TARGET_PATH : " + BUILD_TARGET_PATH);
+        //string BUILD_TARGET_PATH = TARGET_DIR + string.Format(APP_NAME, gameCode);
+        //Debug.Log("BUILD_TARGET_PATH : " + BUILD_TARGET_PATH);
 
+
+        string BUILD_TARGET_PATH = gameCode + ".apk";
         GenericBuild(SCENES, BUILD_TARGET_PATH, BuildTarget.Android, BuildOptions.None);
     }
 
